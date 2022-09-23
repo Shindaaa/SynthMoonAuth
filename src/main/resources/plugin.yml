@@ -1,0 +1,13 @@
+name: SynthMoonAuth
+version: '${project.version}'
+main: eu.shindapp.synthmoonauth.SynthMoonAuth
+api-version: 1.18
+prefix: SynthMoonAuth
+authors: [ Shindapp ]
+description: Auth plugin for SynthMoon By Shindapp
+
+commands:
+  register:
+    description: ---
+  login:
+    description: ---

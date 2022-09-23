@@ -1,0 +1,6 @@
+mysql:
+  hostname: "localhost"
+  username: "xxx"
+  database: "xxx"
+  password: "xxx"
+
