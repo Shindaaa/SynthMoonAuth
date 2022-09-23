@@ -1,5 +1,6 @@
 package eu.shindapp.synthmoonauth.commands;
 
+import eu.shindapp.synthmoonauth.SynthMoonAuth;
 import eu.shindapp.synthmoonauth.models.PlayerLogin;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -32,6 +33,7 @@ public class LoginCmd implements CommandExecutor {
                     return false;
                 }
 
+                SynthMoonAuth.getLoggedPlayers().add(player);
                 player.sendMessage("§dSynth§5Moon §8• §7Bon retour parmis nous §d" + player.getName() + " §7!");
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
                 return true;

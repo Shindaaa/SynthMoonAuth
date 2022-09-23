@@ -46,6 +46,7 @@ public class RegisterCmd implements CommandExecutor {
                     player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_HURT, 1, 1);
                 }
 
+                SynthMoonAuth.getLoggedPlayers().add(player);
                 player.sendMessage("§dSynth§5Moon §8• §7Vous avez été §acorrectement enregistré §7sur le serveur.\n§7Amusez vous bien.");
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
                 //...

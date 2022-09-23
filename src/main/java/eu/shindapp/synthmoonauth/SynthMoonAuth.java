@@ -9,22 +9,28 @@ import eu.shindapp.synthmoonauth.commands.RegisterCmd;
 import eu.shindapp.synthmoonauth.models.PlayerLogin;
 import eu.shindapp.synthmoonauth.utils.ConfigUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class SynthMoonAuth extends JavaPlugin {
 
     private static SynthMoonAuth instance;
     private static JdbcConnectionSource connection;
 
+    private static List<Player> loggedPlayers;
+
     private static Dao<PlayerLogin, String> playerLoginDao;
 
     @Override
     public void onEnable() {
         instance = this;
+        loggedPlayers = new ArrayList<>();
         new ConfigUtils().loadConfiguration();
 
         try {
@@ -45,7 +51,7 @@ public final class SynthMoonAuth extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        //...
+        loggedPlayers.clear();
     }
 
     private void registerEvents() {
@@ -78,5 +84,9 @@ public final class SynthMoonAuth extends JavaPlugin {
 
     public static Dao<PlayerLogin, String> getPlayerLoginDao() {
         return playerLoginDao;
+    }
+
+    public static List<Player> getLoggedPlayers() {
+        return loggedPlayers;
     }
 }
