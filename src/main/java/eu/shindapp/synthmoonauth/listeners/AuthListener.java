@@ -2,11 +2,14 @@ package eu.shindapp.synthmoonauth.listeners;
 
 import eu.shindapp.synthmoonauth.SynthMoonAuth;
 import eu.shindapp.synthmoonauth.utils.AuthUtils;
-import net.md_5.bungee.api.chat.hover.content.Item;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -38,6 +41,31 @@ public class AuthListener implements Listener {
                     new ItemStack(Material.IRON_SHOVEL, 1),
                     new ItemStack(Material.IRON_HOE, 1),
                     new ItemStack(Material.IRON_SWORD, 1));
+        }
+    }
+
+    @EventHandler
+    public void onEntityTakeDamage(EntityDamageEvent event) {
+        if (event.getEntity().getType() == EntityType.PLAYER) {
+            if (!SynthMoonAuth.getLoggedPlayers().contains((Player) event.getEntity())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerBreakBlock(BlockBreakEvent event) {
+        if (!SynthMoonAuth.getLoggedPlayers().contains(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTryToDamage(EntityDamageByEntityEvent event) {
+        if (event.getDamager().getType() == EntityType.PLAYER) {
+            if (!SynthMoonAuth.getLoggedPlayers().contains((Player) event.getDamager())) {
+                event.setCancelled(true);
+            }
         }
     }
 
